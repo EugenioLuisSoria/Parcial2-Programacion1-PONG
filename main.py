@@ -6,8 +6,7 @@ py.init()
 screen = py.display.set_mode((800, 600))
 py.display.set_caption("Ochento´s Pong")
 
-# Rellenar la pantalla con un color
-screen.fill((0, 0, 0))  # Negro
+
 
 # CLASES:
 class Player1:
@@ -24,14 +23,14 @@ class Player1:
         # Dibujar PALETA IZQUIERDA:
         self.image = py.draw.rect(screen, self.color, (self.x, self.y, self.dimentions_x, self.dimentions_y)) 
 
-    """ def move(self):
+    def move(self):
         # Actualizar la posición
-        self.x += self.y_change
+        self.y += self.y_change
         # Limitar el movimiento dentro de los limites de la pantalla
         if self.y <= 0:
             self.y = 0
         elif self.y >= 500: # 600 menos el largo de la paleta
-            self.y = 500 """
+            self.y = 500
 
 class Player2:
     def __init__(self):
@@ -47,14 +46,14 @@ class Player2:
         # Dibujar PALETA IZQUIERDA:
         self.image = py.draw.rect(screen, self.color, (self.x, self.y, self.dimentions_x, self.dimentions_y)) 
 
-    """ def move(self):
+    def move(self):
         # Actualizar la posición
-        self.x += self.y_change
+        self.y += self.y_change
         # Limitar el movimiento dentro de los limites de la pantalla
         if self.y <= 0:
             self.y = 0
         elif self.y >= 500: # 600 menos el largo de la paleta
-            self.y = 500 """
+            self.y = 500
 
 class Ball:
     def __init__(self):
@@ -70,12 +69,12 @@ class Ball:
     def draw(self):
         self.image = py.draw.rect(screen, self.color, (self.x, self.y, self.dimentions_x, self.dimentions_y)) 
 
-    """ def move(self):
+    def move(self):
         self.x += self.x_change
         # Cambiar de dirección
         if self.x <= 0 or self.x >= 736:
             self.x_change *= -1 # Cambio de dirección
-            self.y += self.y_change # Bajar al cambiar de dirección """
+            self.y += self.y_change # Bajar al cambiar de dirección
         
     """ def reset_posicion(self, speed):
         # Reiniciar posición aleatoria para simular un nuevo enemigo
@@ -90,14 +89,40 @@ ball = Ball()
 # Bucle principal del juego
 running = True
 while running:
+    # Rellenar la pantalla con un color
+    screen.fill((0, 0, 0))  # Negro
+    
     for event in py.event.get():
         if event.type == py.QUIT:
             running = False 
             
-    player1.draw()
-    player2.draw()
+        # Detectar si se presiona un tecla
+        if event.type == py.KEYDOWN: # Solo teclas
+            if event.key == py.K_w:
+                player1.y_change = -1 # Valor de velocidad
+            elif event.key == py.K_s:
+                player1.y_change = 1 # Velocidad de jugador
+            if event.key == py.K_UP:
+                player2.y_change = -1 # Valor de velocidad
+            elif event.key == py.K_DOWN:
+                player2.y_change = 1 # Velocidad de jugador
+
+        # Detectar si se suelta la tecla
+        if event.type == py.KEYUP:
+            if event.key == py.K_w or event.key == py.K_s:
+                player1.y_change = 0
+            if event.key == py.K_UP or event.key == py.K_DOWN:
+                player2.y_change = 0
+                
+            
+    #if True: #not game_over:
+        # Mover y dibujar el jugador
+    player1.move()
+    player2.move()        
+    player1.draw()        
+    player2.draw()        
     ball.draw()
-    
+
     # Actualizar la pantalla
     py.display.flip()
 
