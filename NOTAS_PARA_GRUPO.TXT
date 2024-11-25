@@ -1,0 +1,13 @@
+PONG_GSV es el env para usar pygame
+
+REAR ENV:
+python -m venv PONG_GSV   
+
+ACTIVA:
+WIN:
+PONG_GSV\Scripts\activate
+MAC:
+source PONG_GSV/bin/activate
+
+DESACTIVAR:
+deactivate
