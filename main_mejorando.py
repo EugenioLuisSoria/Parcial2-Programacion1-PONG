@@ -140,7 +140,7 @@ while running:
     ball.move(player1, player2)
     #LOS PARAMETREOS SON PARA UBICAR EL SCORE EN PANTALLA
     player1.draw(50, 10)
-    player2.draw(ANCHO - 200, 10)
+    player2.draw(ANCHO - 100, 10)
     ball.draw()
     #py.draw.line(SCREEN, BLANCO, (ANCHO // 2, 0), (ANCHO // 2, ALTO), 2) #RED? como hacerla punteada?
     
