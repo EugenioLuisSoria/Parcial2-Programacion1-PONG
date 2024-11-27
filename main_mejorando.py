@@ -117,30 +117,22 @@ while running:
                 player2.speed = 0
 
     #GANADOR ?
-    if player1.score == 10:
-            ganador_text = FUENTE.render(f"WINNER PLAYER 1", True, BLANCO)
-            SCREEN.blit(ganador_text, (ANCHO/ 3, ALTO / 2 - 15))
-            py.display.flip()
-            time.sleep(2)
-            SCREEN.fill(NEGRO)  
-            game_over = FUENTE.render(f"GAME OVER", True, BLANCO)
-            SCREEN.blit(game_over, (ANCHO/ 3, ALTO / 2 - 15))
-            py.display.flip()
-            time.sleep(2)
-            SCREEN.fill(NEGRO)  
-            
-    elif player2.score == 10:
-            ganador_text = FUENTE.render(f"WINNER PLAYER 2", True, BLANCO)
-            SCREEN.blit(ganador_text, (ANCHO/ 3, ALTO / 2 - 15))
-            py.display.flip()
-            time.sleep(2)
-            SCREEN.fill(NEGRO)  
-            game_over = FUENTE.render(f"GAME OVER", True, BLANCO)
-            SCREEN.blit(game_over, (ANCHO/ 3, ALTO / 2 - 15))
-            py.display.flip()
-            time.sleep(2)
-            SCREEN.fill(NEGRO)  
-            break
+        
+    if player1.score == 10 or player2.score == 10:
+        winner_text = FUENTE.render(f"WINNER PLAYER {1 if player1.score == 10 else 2}", True, BLANCO)
+        SCREEN.blit(winner_text, (ANCHO / 3, ALTO / 2 - 15))
+        py.display.flip()
+        time.sleep(2)
+        SCREEN.fill(NEGRO)
+
+        game_over_text = FUENTE.render("GAME OVER", True, BLANCO)
+        SCREEN.blit(game_over_text, (ANCHO / 3, ALTO / 2 - 15))
+        py.display.flip()
+        time.sleep(2)
+        
+        SCREEN.fill(NEGRO)
+        break    
+        
     
     #Actualizar y dibujar objetos
     player1.move()
