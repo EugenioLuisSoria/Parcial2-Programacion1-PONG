@@ -8,13 +8,13 @@ SCREEN = py.display.set_mode((ANCHO, ALTO))
 py.display.set_caption("Ochento´s Pong")
 NEGRO = (0, 0, 0)
 BLANCO = (255, 255, 255)
-FUENTE = py.font.Font(None, 56)  # Fuente para los puntos
+FONT = py.font.Font(None, 56)  # Fuente para los puntos
 
 #CLASES:
 class Player:
     def __init__(self, init_x):
-        self.position = ALTO / 2 - 50
-        self.paleta = py.Rect(init_x, self.position, 20, 100)
+        self.position_y = ALTO / 2 - 50
+        self.paleta = py.Rect(init_x, self.position_y, 20, 100)
         self.speed = 0
         self.color = BLANCO
         self.score = 0  # Puntos del jugador
@@ -22,16 +22,17 @@ class Player:
     def draw(self, score_ubication_x, score_ubication_y):
         py.draw.rect(SCREEN, self.color, self.paleta)
         #Puntaje
-        score_text = FUENTE.render(f"{self.score}", True, BLANCO)
+        score_text = FONT.render(f"{self.score}", True, BLANCO)
         SCREEN.blit(score_text, (score_ubication_x, score_ubication_y))
 
     def move(self):
-        self.position += self.speed
-        if self.position <= 0:
-            self.position = 0
-        elif self.position >= 500:
-            self.position = 500
-        self.paleta.y = self.position
+        self.position_y += self.speed
+        #para que no se salga de la pantalla
+        if self.position_y <= 0:
+            self.position_y = 0
+        elif self.position_y >= 500:
+            self.position_y = 500
+        self.paleta.y = self.position_y
 
 class Ball:
     def __init__(self):
@@ -43,7 +44,7 @@ class Ball:
         self.ball.x = ANCHO / 2 - 10
         self.ball.y = ALTO / 2 - 10
         #Direcciones iniciales
-        dx = random.choice([-2, 2])
+        dx = random.choice([-2,-1, 1, 2])
         dy = random.choice([-2, -1, 1, 2])
         #Asegurar que dx y dy no resulten en un movimiento puramente horizontal o vertical
         while dx == 0 or dy == 0 or (dx == dy):
@@ -105,7 +106,7 @@ while running:
             if event.key == py.K_r: #RESETEO
                 player1.score = 0
                 player2.score = 0
-                reset_text = FUENTE.render("RESETEANDO", True, BLANCO)
+                reset_text = FONT.render("RESETEANDO", True, BLANCO)
                 SCREEN.blit(reset_text, (ANCHO/ 3, ALTO / 2 - 15))
                 py.display.flip()
                 time.sleep(1)
@@ -119,13 +120,13 @@ while running:
     #GANADOR ?
         
     if player1.score == 10 or player2.score == 10:
-        winner_text = FUENTE.render(f"WINNER PLAYER {1 if player1.score == 10 else 2}", True, BLANCO)
+        winner_text = FONT.render(f"WINNER PLAYER {1 if player1.score == 10 else 2}", True, BLANCO)
         SCREEN.blit(winner_text, (ANCHO / 3, ALTO / 2 - 15))
         py.display.flip()
         time.sleep(2)
         SCREEN.fill(NEGRO)
 
-        game_over_text = FUENTE.render("GAME OVER", True, BLANCO)
+        game_over_text = FONT.render("GAME OVER", True, BLANCO)
         SCREEN.blit(game_over_text, (ANCHO / 3, ALTO / 2 - 15))
         py.display.flip()
         time.sleep(2)
