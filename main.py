@@ -14,7 +14,7 @@ FONT = py.font.Font(None, 56)  #Fuente para los puntos
 rebound_sound = py.mixer.Sound("Parcial2-Programacion1-PONG/rebound.mp3")
 point_sound = py.mixer.Sound("Parcial2-Programacion1-PONG/point.mp3")
 
-#CLASES:
+#CLASES: 
 class Player:
     def __init__(self, init_x):
         self.position_y = ALTO / 2 - 50
