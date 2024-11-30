@@ -1,6 +1,13 @@
+
+
+
 import pygame as py
 import random, time
 py.init()
+
+#Sonidos
+rebound_sound = py.mixer.Sound("rebound.mp3")
+point_sound = py.mixer.Sound("point.mp3")
 
 #Configuraciones
 ANCHO, ALTO = 800, 600
@@ -68,17 +75,22 @@ class Ball:
         #Rebote en paletas
         if self.ball.colliderect(player1.paleta) or self.ball.colliderect(player2.paleta):
             self.direction[0] = -self.direction[0]
+            py.mixer.Sound.play(rebound_sound) #sonido rebote
 
         #Punto para Player2
         if self.ball.x <= 0:
             player2.score += 1
             self.reset_ball()
             self.speed += 0.1
+            py.mixer.Sound.play(point_sound) #sonido de punto
+            
         #Punto para Player1
         if self.ball.x >= ANCHO - self.ball.width:
             player1.score += 1
             self.reset_ball()
             self.speed += 0.1
+            py.mixer.Sound.play(point_sound) #sonido de punto
+            
 
 
 #Bucle principal del juego
