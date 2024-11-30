@@ -8,7 +8,7 @@ SCREEN = py.display.set_mode((ANCHO, ALTO))
 py.display.set_caption("Ochento´s Pong")
 NEGRO = (0, 0, 0)
 BLANCO = (255, 255, 255)
-FONT = py.font.Font(None, 56)  # Fuente para los puntos
+FONT = py.font.Font(None, 56)  #Fuente para los puntos
 
 #CLASES:
 class Player:
@@ -38,19 +38,20 @@ class Ball:
     def __init__(self):
         self.ball = py.Rect(ANCHO / 2 - 10, ALTO / 2 - 10, 20, 20)
         self.color = BLANCO
-        self.reset_ball() #ANDA? 
+        self.speed = 1.0
+        self.reset_ball() #para que se mueva la primera vez
 
     def reset_ball(self):
         self.ball.x = ANCHO / 2 - 10
         self.ball.y = ALTO / 2 - 10
         #Direcciones iniciales
-        dx = random.choice([-2,-1, 1, 2])
-        dy = random.choice([-2, -1, 1, 2])
+        dx = 0
+        dy = 0
         #Asegurar que dx y dy no resulten en un movimiento puramente horizontal o vertical
         while dx == 0 or dy == 0 or (dx == dy):
-            dx = random.choice([-2, 2])
-        dy = random.choice([-2, -1, 1, 2])
-        self.direction = [dx, dy]
+            dx = random.choice([-2,-1, 1, 2])
+            dy = random.choice([-2, -1, 1, 2])
+        self.direction = [dx * self.speed, dy * self.speed]
 
     def draw(self):
         py.draw.rect(SCREEN, self.color, self.ball)
@@ -72,11 +73,12 @@ class Ball:
         if self.ball.x <= 0:
             player2.score += 1
             self.reset_ball()
-
+            self.speed += 0.1
         #Punto para Player1
         if self.ball.x >= ANCHO - self.ball.width:
             player1.score += 1
             self.reset_ball()
+            self.speed += 0.1
 
 
 #Bucle principal del juego
@@ -106,6 +108,7 @@ while running:
             if event.key == py.K_r: #RESETEO
                 player1.score = 0
                 player2.score = 0
+                ball.speed = 1
                 reset_text = FONT.render("RESETEANDO", True, BLANCO)
                 SCREEN.blit(reset_text, (ANCHO/ 3, ALTO / 2 - 15))
                 py.display.flip()
@@ -132,8 +135,7 @@ while running:
         time.sleep(2)
         
         SCREEN.fill(NEGRO)
-        break    
-        
+        break          
     
     #Actualizar y dibujar objetos
     player1.move()
