@@ -11,8 +11,8 @@ NEGRO = (0, 0, 0)
 BLANCO = (255, 255, 255)
 FONT = py.font.Font(None, 56)  #Fuente para los puntos
 #Sonidos
-rebound_sound = py.mixer.Sound("rebound.mp3")
-point_sound = py.mixer.Sound("point.mp3")
+rebound_sound = py.mixer.Sound("Parcial2-Programacion1-PONG/rebound.mp3")
+point_sound = py.mixer.Sound("Parcial2-Programacion1-PONG/point.mp3")
 
 #CLASES:
 class Player:
