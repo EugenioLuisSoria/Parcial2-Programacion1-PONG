@@ -1,13 +1,7 @@
-
-
-
 import pygame as py
 import random, time
 py.init()
 
-#Sonidos
-rebound_sound = py.mixer.Sound("rebound.mp3")
-point_sound = py.mixer.Sound("point.mp3")
 
 #Configuraciones
 ANCHO, ALTO = 800, 600
@@ -16,6 +10,9 @@ py.display.set_caption("Ochento´s Pong")
 NEGRO = (0, 0, 0)
 BLANCO = (255, 255, 255)
 FONT = py.font.Font(None, 56)  #Fuente para los puntos
+#Sonidos
+rebound_sound = py.mixer.Sound("rebound.mp3")
+point_sound = py.mixer.Sound("point.mp3")
 
 #CLASES:
 class Player:
@@ -91,8 +88,9 @@ class Ball:
             self.speed += 0.1
             py.mixer.Sound.play(point_sound) #sonido de punto
             
-
-
+            
+            
+        
 #Bucle principal del juego
 player1 = Player(50)
 player2 = Player(700)
@@ -132,8 +130,8 @@ while running:
             if event.key in [py.K_UP, py.K_DOWN]:
                 player2.speed = 0
 
-    #GANADOR ?
         
+    #GANADOR?
     if player1.score == 10 or player2.score == 10:
         winner_text = FONT.render(f"WINNER PLAYER {1 if player1.score == 10 else 2}", True, BLANCO)
         SCREEN.blit(winner_text, (ANCHO / 3, ALTO / 2 - 15))
